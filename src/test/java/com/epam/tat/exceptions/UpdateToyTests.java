@@ -26,8 +26,6 @@ class UpdateToyTests extends AbstractBaseTests {
 
     @Test
     void shouldThrowExceptionForUpdateToyMethodWhenNullValue() {
-        IPlayroom playroom = new PlayroomBaseClient(null);
-        Toy toy = new Toy(1L, "Car", GameType.SPORTS, Gender.MALE, 4, Size.SMALL, Material.METAL, 70);
-        Assertions.assertThrows(InitializationException.class, () -> playroom.updateToy(1L, toy));
+        Assertions.assertThrows(InitializationException.class, () -> new PlayroomBaseClient(null));
     }
 }

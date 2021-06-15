@@ -1,7 +1,6 @@
 package com.epam.tat.exceptions;
 
 import com.epam.tat.exceptions.bean.Toy;
-import com.epam.tat.exceptions.client.IPlayroom;
 import com.epam.tat.exceptions.client.impl.PlayroomBaseClient;
 import com.epam.tat.exceptions.exception.InitializationException;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +25,6 @@ class GetAllToysTests extends AbstractBaseTests {
 
     @Test
     void shouldThrowExceptionForGetAllToysMethodWhenNullValue() {
-        IPlayroom playroom = new PlayroomBaseClient(null);
-        Assertions.assertThrows(InitializationException.class, playroom::getAllToys);
+        Assertions.assertThrows(InitializationException.class, () -> new PlayroomBaseClient(null));
     }
 }
