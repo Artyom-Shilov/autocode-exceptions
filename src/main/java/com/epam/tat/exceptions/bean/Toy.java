@@ -19,16 +19,7 @@ public class Toy {
     private GameType gameType;
 
     public Toy(Long id, String toyName, GameType gameType, Gender gender, int age, Size size, Material material, double price) {
-        this.toyName = toyName;
-        this.gameType = gameType;
-        this.gender = gender;
-        this.age = age;
-        this.size = size;
-        this.material = material;
-        this.price = price;
-    }
-
-    public Toy(String toyName, GameType gameType, Gender gender, int age, Size size, Material material, double price) {
+        this.id = id;
         this.toyName = toyName;
         this.gameType = gameType;
         this.gender = gender;
