@@ -1,13 +1,11 @@
 package com.epam.tat.exceptions;
 
 import com.epam.tat.exceptions.bean.Toy;
-import com.epam.tat.exceptions.client.IPlayroom;
-import com.epam.tat.exceptions.client.impl.PlayroomBaseClient;
 import com.epam.tat.exceptions.constants.GameType;
 import com.epam.tat.exceptions.constants.Gender;
 import com.epam.tat.exceptions.constants.Material;
 import com.epam.tat.exceptions.constants.Size;
-import com.epam.tat.exceptions.exception.InitializationException;
+import com.epam.tat.exceptions.exception.AddToyException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +21,6 @@ class AddToyTests extends AbstractBaseTests {
 
     @Test
     void shouldThrowExceptionForAddToyMethodWhenNullValue() {
-        IPlayroom playroom = new PlayroomBaseClient(null);
-        Toy toy = new Toy(4L, "Car4", GameType.SPORTS, Gender.FEMALE, 4, Size.SMALL, Material.PLASTIC, 71);
-        Assertions.assertThrows(InitializationException.class, () -> playroom.addToy(toy));
+        Assertions.assertThrows(AddToyException.class, () -> playroom.addToy(null));
     }
 }

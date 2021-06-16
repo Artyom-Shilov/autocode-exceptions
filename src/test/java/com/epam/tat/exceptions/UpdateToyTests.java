@@ -15,17 +15,17 @@ class UpdateToyTests extends AbstractBaseTests {
 
     @Test
     void shouldUpdateToy() {
-        Toy toy = new Toy("Car", GameType.SPORTS, Gender.MALE, 4, Size.SMALL, Material.METAL, 70);
+        Toy replacementToy = new Toy(1L, "Car", GameType.SPORTS, Gender.MALE, 4, Size.SMALL, Material.METAL, 70);
+        Toy toyToReplace = new Toy(1L, "Doll", GameType.STORY, Gender.FEMALE, 6, Size.MEDIUM, Material.PLASTIC, 150);
 
         Assertions.assertAll("Toy updated successfully!",
-                () -> Assertions.assertTrue(playroom.updateToy(1L, toy), "Check return value"),
-                () -> Assertions.assertFalse(playroom.getAllToys().contains(toy), "Check that list is not contained removed toy!"));
+                () -> Assertions.assertTrue(playroom.updateToy(1L, replacementToy), "Check return value"),
+                () -> Assertions.assertTrue(playroom.getAllToys().contains(replacementToy), "Check that list contains updated toy!"),
+                () -> Assertions.assertFalse(playroom.getAllToys().contains(toyToReplace), "Check that list does not contain old toy!"));
     }
 
     @Test
     void shouldThrowExceptionForUpdateToyMethodWhenNullValue() {
-        IPlayroom playroom = new PlayroomBaseClient(null);
-        Toy toy = new Toy("Car", GameType.SPORTS, Gender.MALE, 4, Size.SMALL, Material.METAL, 70);
-        Assertions.assertThrows(InitializationException.class, () -> playroom.updateToy(1L,toy));
+        Assertions.assertThrows(InitializationException.class, () -> new PlayroomBaseClient(null));
     }
 }
