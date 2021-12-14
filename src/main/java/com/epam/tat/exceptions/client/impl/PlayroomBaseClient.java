@@ -38,7 +38,4 @@ public class PlayroomBaseClient implements IPlayroom {
 		throw new UnsupportedOperationException("You need to implement this method");
 	}
 
-	public List<Toy> getToyList() {
-		throw new UnsupportedOperationException("You need to implement this method");
-	}
 }
