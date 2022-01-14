@@ -98,16 +98,32 @@ public class PlayroomBaseClient implements IPlayroom {
 		if (value == null) {
 			throw new GetToysByParameterException("value as parameter");
 		}
-		switch (Parameter.valueOf(parameter.toUpperCase())) {
-			case ID: return getToysById(value);
-			case TOY_NAME: return getToysByToyName(value);
-			case GAME_TYPE: return getToysByGameType(value);
-			case GENDER: return getToysByGender(value);
-			case AGE: return getToysByAge(value);
-			case SIZE: return getToysBySize(value);
-			case MATERIAL: return getToysByMaterial(value);
-			case PRICE: return getToysByPrice(value);
-			default: throw new GetToysByParameterException("unknown parameter");
+		try {
+			switch (parameter.trim().toUpperCase(Locale.ROOT)) {
+				case "ID":
+					return getToysById(value);
+				case "TOYNAME":
+					return getToysByToyName(value);
+				case "GAMETYPE":
+					return getToysByGameType(value);
+				case "GENDER":
+					return getToysByGender(value);
+				case "AGE":
+					return getToysByAge(value);
+				case "SIZE":
+					return getToysBySize(value);
+				case "MATERIAL":
+					return getToysByMaterial(value);
+				case "PRICE":
+					return getToysByPrice(value);
+				default:
+					throw new GetToysByParameterException("unknown parameter");
+			}
+		} catch (NumberFormatException e) {
+			throw new GetToysByParameterException(e);
+		}
+		catch (IllegalArgumentException e) {
+			throw new GetToysByParameterException(parameter + " " + value, e);
 		}
 	}
 
