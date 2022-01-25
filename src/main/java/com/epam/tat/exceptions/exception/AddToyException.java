@@ -17,5 +17,4 @@ public class AddToyException extends RuntimeException {
     public AddToyException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }
