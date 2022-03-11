@@ -13,6 +13,8 @@ public class PlayroomBaseClient implements IPlayroom {
 
     private List<Toy> toyList;
 
+    private final String TOY_IS_NULL_EXCEPTION_MESSAGE = "toy is null";
+
     public PlayroomBaseClient() {
         toyList = new ArrayList<>();
         toyList.add(new Toy(1L, "Doll", GameType.STORY, Gender.FEMALE, 6, Size.MEDIUM, Material.PLASTIC, 150));
@@ -62,7 +64,7 @@ public class PlayroomBaseClient implements IPlayroom {
     @Override
     public boolean removeToy(Toy toy) {
         if (toy == null) {
-            throw new RemoveToyException("null as toy");
+            throw new RemoveToyException(TOY_IS_NULL_EXCEPTION_MESSAGE);
         }
         return toyList.remove(toy);
     }
@@ -70,9 +72,9 @@ public class PlayroomBaseClient implements IPlayroom {
     @Override
     public boolean addToy(Toy toy) {
         if (toy == null) {
-            throw new AddToyException("null as toy");
+            throw new AddToyException(TOY_IS_NULL_EXCEPTION_MESSAGE);
         }
-        if (toyList.stream().anyMatch((toyInList) -> toyInList.getId().equals(toy.getId()))) {
+        if (toyList.stream().anyMatch(toyInList -> toyInList.getId().equals(toy.getId()))) {
             throw new AddToyException("toy with the id is present already");
         }
         if (toy.getId() == null || toy.getAge() < 0 || toy.getToyName() == null
@@ -89,9 +91,9 @@ public class PlayroomBaseClient implements IPlayroom {
             throw new UpdateToyException("null as id");
         }
         if (toy == null) {
-            throw new UpdateToyException("null as toy");
+            throw new UpdateToyException(TOY_IS_NULL_EXCEPTION_MESSAGE);
         }
-        if (toyList.stream().noneMatch((toyInList) -> toyInList.getId().equals(toy.getId()))) {
+        if (toyList.stream().noneMatch(toyInList -> toyInList.getId().equals(toy.getId()))) {
             throw new UpdateToyException("there is no toy with the id");
         }
         if (toy.getId() == null || toy.getAge() < 0 || toy.getToyName() == null
@@ -99,10 +101,10 @@ public class PlayroomBaseClient implements IPlayroom {
                 || toy.getPrice() < 0 || toy.getSize() == null) {
             return false;
         }
-        if (!id.equals(toy.getId()) && toyList.stream().anyMatch((toyInList) -> toyInList.getId().equals(toy.getId()))) {
+        if (!id.equals(toy.getId()) && toyList.stream().anyMatch(toyInList -> toyInList.getId().equals(toy.getId()))) {
             return false;
         }
-        Optional<Toy> optionalToy = toyList.stream().filter((toyInList) -> toyInList.getId().equals(id)).findFirst();
+        Optional<Toy> optionalToy = toyList.stream().filter(toyInList -> toyInList.getId().equals(id)).findFirst();
         toyList.set(toyList.indexOf(optionalToy.orElseThrow(UpdateToyException::new)), toy);
         return true;
     }
