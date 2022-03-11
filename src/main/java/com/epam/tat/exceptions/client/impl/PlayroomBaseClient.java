@@ -45,7 +45,7 @@ public class PlayroomBaseClient implements IPlayroom {
             throw new GetToysByParameterException("null as parameter");
         }
         if (value == null) {
-            throw new GetToysByParameterException("value as parameter");
+            throw new GetToysByParameterException("value is null");
         }
         try {
             for (Parameter enumParameter : Parameter.values()) {
@@ -60,12 +60,20 @@ public class PlayroomBaseClient implements IPlayroom {
     }
 
     @Override
+    public boolean removeToy(Toy toy) {
+        if (toy == null) {
+            throw new RemoveToyException("null as toy");
+        }
+        return toyList.remove(toy);
+    }
+
+    @Override
     public boolean addToy(Toy toy) {
         if (toy == null) {
             throw new AddToyException("null as toy");
         }
         if (toyList.stream().anyMatch((toyInList) -> toyInList.getId().equals(toy.getId()))) {
-            throw new AddToyException("toy with the ID is present already");
+            throw new AddToyException("toy with the id is present already");
         }
         if (toy.getId() == null || toy.getAge() < 0 || toy.getToyName() == null
                 || toy.getGameType() == null || toy.getGender() == null || toy.getMaterial() == null
@@ -73,14 +81,6 @@ public class PlayroomBaseClient implements IPlayroom {
             return false;
         }
         return toyList.add(toy);
-    }
-
-    @Override
-    public boolean removeToy(Toy toy) {
-        if (toy == null) {
-            throw new RemoveToyException("null as toy");
-        }
-        return toyList.remove(toy);
     }
 
     @Override
