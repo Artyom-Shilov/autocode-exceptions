@@ -13,7 +13,7 @@ public class PlayroomBaseClient implements IPlayroom {
 
     private List<Toy> toyList;
 
-    private final static String TOY_IS_NULL_EXCEPTION_MESSAGE = "toy is null";
+    private static final String TOY_IS_NULL_EXCEPTION_MESSAGE = "toy is null";
 
     public PlayroomBaseClient() {
         toyList = new ArrayList<>();
